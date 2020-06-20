@@ -4,10 +4,6 @@ MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggle
 MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem
 } from "mdbreact";
 import { BrowserRouter as Router } from 'react-router-dom';
-import { ReactComponent as Logo } from '../../assets/crown.svg'
-
-
-
 
 class Header extends Component {
 state = {
@@ -21,29 +17,22 @@ toggleCollapse = () => {
 render() {
   return (
     <Router>
-      <MDBNavbar color="cyan lighten-3" dark expand="md">
-
+      <MDBNavbar color="indigo" dark expand="md" sticky='top'>
         <MDBNavbarBrand>
           <strong className="white-text">LOGO</strong>
-          <Logo />
         </MDBNavbarBrand>
-
         <MDBNavbarToggler onClick={this.toggleCollapse} />
         <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
           <MDBNavbarNav left>
-
             <MDBNavItem active>
               <MDBNavLink to="#!">Home</MDBNavLink>
             </MDBNavItem>
-
             <MDBNavItem>
               <MDBNavLink to="#!">Features</MDBNavLink>
             </MDBNavItem>
-
             <MDBNavItem>
               <MDBNavLink to="#!">Pricing</MDBNavLink>
             </MDBNavItem>
-
             <MDBNavItem>
               <MDBDropdown>
                 <MDBDropdownToggle nav caret>
@@ -58,7 +47,6 @@ render() {
               </MDBDropdown>
             </MDBNavItem>
           </MDBNavbarNav>
-
           <MDBNavbarNav right>
             <MDBNavItem>
               <MDBFormInline waves>

@@ -9,16 +9,73 @@ import {
     CHANGE_PASSWORD_FAILED,
     CHANGE_PASSWORD_SUCCESS
 } from '../types'
-import { Switch } from 'react-router-dom'
+
 
 const INITIAL_STATE = {
-    role: '',
     username: '',
-
+    id: 0,
+    isloading: false,
+    islogin: false,
+    errormess: '',
+    cart: 0,
+    role: '',
+    token: '',
+    password: '',
+    isverified: 0
 }
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
+        case USER_REGISTER_START:
+            return {
+                ...state,
+                isLoading: true
+            }
+        case USER_REGISTER_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                ...action.payload,
+                isLogin: true,
+                cart: action.jumlahCart
+            }
+        case USER_REGISTER_FAILED:
+            return {
+                ...state,
+                isLoading: false,
+                errorMessage: action.payload
+            }
+        case USER_LOGIN_START:
+            return {
+                ...state,
+                isLoading: true
+            }
+        case USER_LOGIN_FAILED:
+            return {
+                ...state,
+                isLoading: false,
+                errorMessage: action.payload
+            }
+        case USER_LOGIN_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                ...action.payload,
+                isLogin: true,
+                cart: action.jumlahCart
+            }
+        case 'ADD_CART':
+            return {
+                ...state,
+                cart: action.payload
+            }
+        case 'AFTER_VERIFIED':
+            return {
+                ...state,
+                ...action.payload
+            }
+        case 'ERROR_MESSAGE_CLEAR':
+            return INITIAL_STATE
         default:
             return state
     }

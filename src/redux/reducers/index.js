@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux'
 import HeaderReducers from './HeaderReducers'
+import AuthReducers from './AuthReducers'
 
 export default combineReducers ({
-    Header: HeaderReducers
+    Auth: AuthReducers,
+    Header: HeaderReducers,
 })

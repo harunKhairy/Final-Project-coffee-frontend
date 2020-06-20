@@ -1,4 +1,3 @@
-import Axios from 'axios'
 import {
     USER_REGISTER_START,
     USER_REGISTER_FAILED,
@@ -10,23 +9,119 @@ import {
     CHANGE_PASSWORD_FAILED,
     CHANGE_PASSWORD_SUCCESS
 } from '../types'
+import { API_URL } from '../../support/ApiUrl'
+import Axios from 'axios'
 
-export const registerUser = ({ newUsername, newEmail, newPassword, newConfirmPassword }) => {
+export const RegisterUser = ({ username, email, password, confirmPassword }) => {
     return (dispatch) => {
         dispatch ({ type: USER_REGISTER_START })
         
-        if (newUsername === '' || newEmail === '' || newPassword === '' || newConfirmPassword === '') {
+        if (username === '' || email === '' || password === '' || confirmPassword === '') {
             dispatch ({ 
                 type: USER_REGISTER_FAILED,
                 payload: 'Mohon di isi semua'
             })
-        } else if (newPassword !== newConfirmPassword) {
+
+        } else if (password !== confirmPassword) {
             dispatch ({
                 type: USER_REGISTER_FAILED,
                 payload: 'password dan confirm password tidak sama'
             })
+
         } else {
-            // ///////////////
+            let data = {username, email, password}
+            Axios.post(`${API_URL}/users/register`, data)
+            .then ( response => {
+                if (response.data.status) {
+                    localStorage.setItem('token', response.data.token)
+                    dispatch ({
+                        type: USER_REGISTER_SUCCESS,
+                        payload: response.data
+                    })
+                } else {
+                    dispatch ({
+                        type: USER_REGISTER_FAILED,
+                        payload: 'username' + username + 'sudah ada'
+                    })
+                }
+            })
+            .catch ( error => {
+                dispatch({
+                    type: USER_REGISTER_FAILED,
+                    payload: error.message
+                })
+            })
         }
+    }
+}
+
+export const LoginUser = ({ username, password }) => {
+    return (dispatch) => {
+        dispatch ({ type: USER_LOGIN_START })
+
+        if (username === '' || password === '') {
+            dispatch ({
+                type: USER_LOGIN_FAILED,
+                payload: 'username atau password tidak terisi'
+            })
+        
+        } else {
+            Axios.get(`${API_URL}/users/login`, {
+                params: {
+                    username: username,
+                    password: password
+                }
+            })
+            .then( response => {
+                if (response.data.status) {
+                    localStorage.setItem('token', response.data.token)
+                    dispatch ({
+                        type: USER_LOGIN_SUCCESS,
+                        payload: response.data,
+                        jumlahCart: response.data.jumlahCart
+                    })
+                
+                } else {
+                    dispatch ({
+                        type: USER_LOGIN_FAILED,
+                        payload: 'username atau password tidak terdaftar'
+                    })
+                }
+            })
+            .catch( error => {
+                dispatch ({
+                    type: USER_LOGIN_FAILED,
+                    payload: error.message
+                })
+            })
+        }
+    }
+}
+
+export const KeepLogin = (data, jumlahCart) => {
+    return {
+        type: USER_LOGIN_SUCCESS,
+        payload: data,
+        jumlahCart: jumlahCart
+    }
+}
+
+export const AfterVerified = (data) => {
+    return {
+        type: 'AFTER_VERIFIED',
+        payload: data
+    }
+}
+
+export const CartChange = (data) => {
+    return {
+        type: 'ADD_CART',
+        payload: data,
+    }
+}
+
+export const ErrorMessageClear = () => {
+    return {
+        type: 'ERROR_MESSAGE_CLEAR'
     }
 }
