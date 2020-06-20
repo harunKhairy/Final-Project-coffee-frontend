@@ -70,5 +70,6 @@ const LoginScreen = (props) => {
 const mapStateToProps = (state) => {
     return state.Auth
 }
+// test
 
 export default connect(mapStateToProps, {LoginUser, ErrorMessageClear, KeepLogin }) (LoginScreen);
