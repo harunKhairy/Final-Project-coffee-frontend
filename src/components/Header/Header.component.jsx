@@ -110,7 +110,7 @@ render() {
                     <MDBDropdownItem>
                           {
                               this.props.USER.isverified === 0 ?
-                              <Link to='/sendverified'>
+                              <Link to='/sendemailverified'>
                                   <span style={{color:'red'}}>Unverified</span> 
                               </Link>
                               :

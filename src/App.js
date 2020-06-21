@@ -6,6 +6,9 @@ import HomePage from './screens/HomePage/HomePage'
 import LoginScreen from './screens/LoginScreen/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen/RegisterScreen'
 import VerifiedScreen from './screens/VerifiedScreen/VerifiedScreen'
+import SendEmailVerified from './screens/SendEmailVerified/SendEmailVerified'
+import ManageAdmin from './screens/ManageAdmin/ManageAdminScreen'
+import ManageTransaction from './screens/ManageTransaction/ManageTransactionScreen'
 
 import { Switch, Route } from 'react-router-dom'
 import Axios from 'axios'
@@ -35,6 +38,8 @@ function App ({ KeepLogin }) {
     }
   }, [KeepLogin])
 
+  if (loading) return <div>Loading.....</div>
+
   return (
     <div>
       <Header />
@@ -43,6 +48,10 @@ function App ({ KeepLogin }) {
         <Route exact path="/login" component={LoginScreen} />
         <Route exact path="/register" component={RegisterScreen} />
         <Route exact path="/verified" component={VerifiedScreen} />
+        <Route exact path="/sendemailverified" component={SendEmailVerified} />
+        <Route exact path="/manageadmin" component={ManageAdmin} />
+        <Route exact path="/managetransaksi" component={ManageTransaction} />
+
 
       </Switch>
     </div>

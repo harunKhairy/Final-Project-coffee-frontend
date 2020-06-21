@@ -30,6 +30,7 @@ export const RegisterUser = ({ username, email, password, confirmPassword }) => 
 
         } else {
             let data = {username, email, password}
+            // Axios.post(`${API_URL}/users/register`, data)
             Axios.post(`${API_URL}/auth/register`, data)
             .then ( response => {
                 if (response.data.status) {
@@ -67,6 +68,7 @@ export const LoginUser = ({ username, password }) => {
         
         } else {
             Axios.get(`${API_URL}/auth/login`, {
+            // Axios.get(`${API_URL}/users/login`, {
                 params: {
                     username: username,
                     password: password
