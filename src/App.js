@@ -14,6 +14,7 @@ import { Switch, Route } from 'react-router-dom'
 import Axios from 'axios'
 import { API_URL } from './support/ApiUrl'
 import { connect } from 'react-redux'
+import NotFound from './components/notfound/notFound'
 
 function App ({ KeepLogin }) {
 
@@ -51,6 +52,8 @@ function App ({ KeepLogin }) {
         <Route exact path="/sendemailverified" component={SendEmailVerified} />
         <Route exact path="/manageadmin" component={ManageAdmin} />
         <Route exact path="/managetransaksi" component={ManageTransaction} />
+
+        <Route path='/*' exact component={NotFound} />
 
 
       </Switch>

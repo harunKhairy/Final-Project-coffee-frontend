@@ -60,7 +60,7 @@ const LoginScreen = (props) => {
                     }
 
                     <div className="text-center">
-                        <MDBBtn type='submit' disabled={props.loading} >Login</MDBBtn>
+                        <MDBBtn type='submit' disabled={props.isloading} >Login</MDBBtn>
                     </div>
                 </form>
             </div>

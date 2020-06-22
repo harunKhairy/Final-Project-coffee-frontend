@@ -5,9 +5,9 @@ import {
     USER_LOGIN_START,
     USER_LOGIN_FAILED,
     USER_LOGIN_SUCCESS,
-    CHANGE_PASSWORD_START,
-    CHANGE_PASSWORD_FAILED,
-    CHANGE_PASSWORD_SUCCESS
+    // CHANGE_PASSWORD_START,
+    // CHANGE_PASSWORD_FAILED,
+    // CHANGE_PASSWORD_SUCCESS
 } from '../types'
 
 
@@ -29,40 +29,40 @@ export default (state = INITIAL_STATE, action) => {
         case USER_REGISTER_START:
             return {
                 ...state,
-                isLoading: true
+                isloading: true
             }
         case USER_REGISTER_SUCCESS:
             return {
                 ...state,
                 isLoading: false,
                 ...action.payload,
-                isLogin: true,
-                cart: action.jumlahCart
+                islogin: true,
+                cart: action.jumlahcart
             }
         case USER_REGISTER_FAILED:
             return {
                 ...state,
-                isLoading: false,
-                errorMessage: action.payload
+                isloading: false,
+                errormess: action.payload
             }
         case USER_LOGIN_START:
             return {
                 ...state,
-                isLoading: true
+                isloading: true
             }
         case USER_LOGIN_FAILED:
             return {
                 ...state,
-                isLoading: false,
-                errorMessage: action.payload
+                isloading: false,
+                errormess: action.payload
             }
         case USER_LOGIN_SUCCESS:
             return {
                 ...state,
-                isLoading: false,
+                isloading: false,
                 ...action.payload,
-                isLogin: true,
-                cart: action.jumlahCart
+                islogin: true,
+                cart: action.jumlahcart
             }
         case 'ADD_CART':
             return {

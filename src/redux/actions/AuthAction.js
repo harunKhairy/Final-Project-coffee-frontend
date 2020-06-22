@@ -5,9 +5,9 @@ import {
     USER_LOGIN_START,
     USER_LOGIN_FAILED,
     USER_LOGIN_SUCCESS,
-    CHANGE_PASSWORD_START,
-    CHANGE_PASSWORD_FAILED,
-    CHANGE_PASSWORD_SUCCESS
+    // CHANGE_PASSWORD_START,
+    // CHANGE_PASSWORD_FAILED,
+    // CHANGE_PASSWORD_SUCCESS
 } from '../types'
 import { API_URL } from '../../support/ApiUrl'
 import Axios from 'axios'
@@ -80,7 +80,7 @@ export const LoginUser = ({ username, password }) => {
                     dispatch ({
                         type: USER_LOGIN_SUCCESS,
                         payload: response.data,
-                        jumlahCart: response.data.jumlahCart
+                        jumlahcart: response.data.jumlahcart
                     })
                 
                 } else {
@@ -100,11 +100,11 @@ export const LoginUser = ({ username, password }) => {
     }
 }
 
-export const KeepLogin = (data, jumlahCart) => {
+export const KeepLogin = (data, jumlahcart) => {
     return {
         type: USER_LOGIN_SUCCESS,
         payload: data,
-        jumlahCart: jumlahCart
+        jumlahcart: jumlahcart
     }
 }
 
