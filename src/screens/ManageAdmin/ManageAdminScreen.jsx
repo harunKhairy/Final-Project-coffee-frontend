@@ -35,22 +35,6 @@ class ManageAdmin extends React.Component {
         }
     }
 
-    // componentDidMount(){
-    //     Axios.get(`${API_URL}/product/addprod`)
-    //     .then(res => {
-    //         console.log(res.data)
-    //         Axios.get(`${API_URL}/product/category`)
-    //         .then(rescategory => {
-    //             this.setState({
-    //                 products:res.data.product,
-    //                 categories: rescategory.data.category
-    //             })
-    //         }).catch(error => {
-    //             console.log(error)
-    //         })
-    //     })
-    // }
-
     toogleAdd = () => {
         this.setState({ isModaladdOpen: !this.state.isModaladdOpen })
     }
@@ -85,10 +69,10 @@ class ManageAdmin extends React.Component {
         
         let obj = {
             name: addName,
-            stok: addStok,
-            kategoriid: addCategory,
-            harga: addHarga,
-            deskripsi: addDeskripsi
+            stock: addStok,
+            categoryid: addCategory,
+            price: addHarga,
+            description: addDeskripsi
         }
 
         let token = this.props.USER.token
@@ -152,10 +136,10 @@ class ManageAdmin extends React.Component {
         
         let obj = {
             name: editName,
-            stok: editStok,
-            kategoriid: editCategory,
-            harga: editHarga,
-            deskripsi: editDeskripsi
+            stock: editStok,
+            categoryid: editCategory,
+            price: editHarga,
+            description: editDeskripsi
         }
 
         let token = this.props.USER.token
@@ -201,10 +185,10 @@ class ManageAdmin extends React.Component {
                             width="150px" 
                             height="150px"
                         /></td>
-                    <td>{val.stok}</td>
+                    <td>{val.stock}</td>
                     <td>{val.catname}</td>
-                    <td>{val.harga}</td>
-                    <td>{val.deskripsi}</td>
+                    <td>{val.price}</td>
+                    <td>{val.description}</td>
                     <td>
                         <button
                             className="btn btn-primary"
@@ -268,13 +252,13 @@ class ManageAdmin extends React.Component {
                         <ModalBody>
                             <input type="text" ref='editName' defaultValue={products[indexedit].name} placeholder='Product name' className='form-control mt-2 '/>
                             <input type="file"  placeholder='Url Image' onChange={this.handlerEditImageChange} className='form-control mt-2'/>
-                            <input type="number" ref='editStok' defaultValue={products[indexedit].stok} placeholder='jumlah stok' className='form-control mt-2'/>
+                            <input type="number" ref='editStok' defaultValue={products[indexedit].stock} placeholder='jumlah stok' className='form-control mt-2'/>
                             <select ref='editCategory' defaultValue={products[indexedit].idcat} className='form-control mt-2'>
                                 <option value="" hidden>Pilih category</option>
                                 {this.renderCategoryToAdd()}
                             </select>
-                            <input type="number" defaultValue={products[indexedit].harga} ref='editHarga' placeholder='Harga ' className='form-control mt-2'/>
-                            <textarea cols="20" rows="5" defaultValue={products[indexedit].deskripsi} ref='editDeskripsi' className='form-control mt-2' placeholder='deskripsi' ></textarea>
+                            <input type="number" defaultValue={products[indexedit].price} ref='editHarga' placeholder='Harga ' className='form-control mt-2'/>
+                            <textarea cols="20" rows="5" defaultValue={products[indexedit].description} ref='editDeskripsi' className='form-control mt-2' placeholder='deskripsi' ></textarea>
                         </ModalBody>
                         <ModalFooter>
                             <Button color="primary" onClick={this.btnSaveEditClick}>Save</Button>

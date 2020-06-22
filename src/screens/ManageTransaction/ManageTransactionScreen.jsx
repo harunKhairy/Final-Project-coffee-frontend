@@ -68,7 +68,7 @@ class ManageTransaction extends React.Component {
             return (
                 <tr key={index}>
                     <td>{val.id}</td>
-                    <td>{val.userId}</td>
+                    <td>{val.userid}</td>
                     <td>{val.metode}</td>
                     <td><button 
                             className='btn btn-success' 
