@@ -9,12 +9,14 @@ import VerifiedScreen from './screens/VerifiedScreen/VerifiedScreen'
 import SendEmailVerified from './screens/SendEmailVerified/SendEmailVerified'
 import ManageAdmin from './screens/ManageAdmin/ManageAdminScreen'
 import ManageTransaction from './screens/ManageTransaction/ManageTransactionScreen'
+import NotFound from './components/notfound/notFound'
 
 import { Switch, Route } from 'react-router-dom'
 import Axios from 'axios'
 import { API_URL } from './support/ApiUrl'
 import { connect } from 'react-redux'
-import NotFound from './components/notfound/notFound'
+
+
 
 function App ({ KeepLogin }) {
 

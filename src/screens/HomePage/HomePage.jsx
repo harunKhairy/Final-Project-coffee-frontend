@@ -1,45 +1,35 @@
 import React from 'react'
 
-const HomePage = () => {
-    return (
-        <div>
-            <h1>Home Page Screen 01</h1>
-            <h1>Home Page Screen 02</h1>
-            <h1>Home Page Screen 03</h1>
-            <h1>Home Page Screen 04</h1>
-            <h1>Home Page Screen 05</h1>
-            <h1>Home Page Screen</h1>
-            <h1>Home Page Screen</h1>
-            <h1>Home Page Screen</h1>
-            <h1>Home Page Screen</h1>
-            <h1>Home Page Screen</h1>
-            <h1>Home Page Screen</h1>
-            <h1>Home Page Screen</h1>
-            <h1>Home Page Screen</h1>
-            <h1>Home Page Screen</h1>
-            <h1>Home Page Screen</h1>
-            <h1>Home Page Screen</h1>
-            <h1>Home Page Screen</h1>
-            <h1>Home Page Screen</h1>
-            <h1>Home Page Screen</h1>
-            <h1>Home Page Screen</h1>
-            <h1>Home Page Screen</h1>
-            <h1>Home Page Screen</h1>
-            <h1>Home Page Screen</h1>
-            <h1>Home Page Screen</h1>
-            <h1>Home Page Screen</h1>
-            <h1>Home Page Screen</h1>
-            <h1>Home Page Screen</h1>
-            <h1>Home Page Screen</h1>
-            <h1>Home Page Screen</h1>
-            <h1>Home Page Screen</h1>
-            <h1>Home Page Screen</h1>
-            <h1>Home Page Screen</h1>
-            <h1>Home Page Screen</h1>
-            <h1>Home Page Screen</h1>
-            <h1>Home Page Screen</h1>
-        </div>
-    )
+import videoSource from '../../assets/kopi.mp4'
+import './HomePage.css'
+
+
+
+
+class HomePage extends React.Component {
+
+    render () {
+        return (
+            <div className='Container' >
+                <video autoPlay="autoplay" loop="loop" muted className='Video'>
+                    <source src={videoSource} type="video/mp4" />
+                </video>
+
+                <div className='Content'>
+                    <div className='SubContent'>
+                        <h1>Selamat datang di Kopikopiko (KKK)</h1>
+                        <p>'Kami tidak menjual kopi hitam'</p>
+                        <button 
+                            type="button" 
+                            className="btn btn-outline-white"
+                            >
+                                Shop now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        )
+    }
 }
 
 export default HomePage

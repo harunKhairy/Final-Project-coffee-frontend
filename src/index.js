@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import App from './App';
 
 import { BrowserRouter } from 'react-router-dom'
-import ReduxThunk from 'redux-thunk'
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import Reducers from './redux/reducers'
+import ReduxThunk from 'redux-thunk'
 
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css'

@@ -29,7 +29,7 @@ logoutHandler = () => {
 render() {
   return (
     
-      <MDBNavbar color="indigo" dark expand="md" sticky='top'>
+      <MDBNavbar color=" blue-grey darken-1" dark expand="md" sticky='top'>
         <MDBNavbarBrand href="/">
           <strong className="white-text">LOGO</strong>
         </MDBNavbarBrand>
@@ -115,7 +115,6 @@ render() {
                               </Link>
                               :
                               <span style={{color:'green'}}>verified</span>
-                                           
                           }
                       </MDBDropdownItem>
                       <MDBDropdownItem href="#!"></MDBDropdownItem>
