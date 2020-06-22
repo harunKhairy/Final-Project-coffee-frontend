@@ -13,8 +13,8 @@ class VerifiedScreen extends React.Component {
 
     componentDidMount() {
         let obj = querystring.parse(this.props.location.search)
-        Axios.get(`${API_URL}/auth/verified`, {
-        // Axios.get(`${API_URL}/users/verified`, {
+        // Axios.get(`${API_URL}/auth/verified`, {
+        Axios.get(`${API_URL}/users/verified`, {
             headers: {
                 'Authorization' : `Bearer ${obj.token}`
             }

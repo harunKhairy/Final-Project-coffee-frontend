@@ -14,8 +14,8 @@ class SendEmailVerified extends React.Component {
             email: this.props.Auth.email,
             userid: this.props.Auth.id
         }
-        Axios.post(`${API_URL}/auth/sendemailverified`, obj)
-        // Axios.post(`${API_URL}/users/sendemailverified`, obj)
+        // Axios.post(`${API_URL}/auth/sendemailverified`, obj)
+        Axios.post(`${API_URL}/users/sendemailverified`, obj)
         .then( response => {
             if (response.data.pesan) {
                 // sweet alert guys nanti di ganti
