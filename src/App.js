@@ -42,7 +42,7 @@ function App ({ KeepLogin }) {
     }
   }, [KeepLogin])
 
-  if (loading) return <div>Loading.....</div>
+  if (loading) return <div className="d-flex ">Loading.....</div>
 
   return (
     <div>
