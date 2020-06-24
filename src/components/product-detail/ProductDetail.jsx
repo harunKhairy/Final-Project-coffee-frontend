@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Row, Col, Button } from 'reactstrap'
+import { Container, Row, Col, Button, Modal,ModalBody,ModalFooter } from 'reactstrap'
 import Axios from 'axios';
 import { API_URL } from '../../support/ApiUrl';
+import { Redirect } from 'react-router-dom';
+import { changetoRupiah } from '../../support/changeToRp'
+import { connect } from 'react-redux'
 
 
 const ProductDetail = (props) => {
@@ -11,14 +14,20 @@ const ProductDetail = (props) => {
     const [modalOpen, setModalOpen] = useState(false)
     const [redirectToLogin, setRedirectToLogin] = useState(false)
 
+    // let sql = `select * from products where id=${id}`
+
     useEffect(() => {
-        Axios.get(`${API_URL}/product/${props.match.params.idprod}`)
+        // const id = props.match.params.idprod
+        // Axios.get(`${API_URL}/product/productdetail/${props.match.params.idprod}`)
+        Axios.get(`${API_URL}/product/productdetail/${props.match.params.idprod}`)
+        // Axios.get(`${API_URL}/product/getprod/${id}`)
         .then(response => {
             setData(response.data)
         }).catch(error => {
             console.log(error)
         })
-    }, [props.match.params.idprod])
+    // }, [])
+    }, [])
 
     const qtyOnChange = (event) => {
         const { value } = event.target
@@ -40,12 +49,12 @@ const ProductDetail = (props) => {
         }
     }
 
-    const sendToCart = () => {
-        if (props.USER.islogin && props.USER.role === '1') {
-            let objTransaction = {
-                status: 'oncart',
-                userid: props.USER.id
-            }
+    // const sendToCart = () => {
+    //     if (props.USER.islogin && props.USER.role === '1') {
+    //         let objTransaction = {
+    //             status: 'oncart',
+    //             userid: props.USER.id
+    //         }
             // Axios.get(`${API_URL}/transactions?status=oncart&userId=${props.User.id}`)
             // .then((res1)=>{
             //     if(res1.data.length){
@@ -117,12 +126,116 @@ const ProductDetail = (props) => {
             // }).catch((err)=>{
             //     console.log(err)
             // })
+    //     }
+    // }
+
+    const onToLoginClick = () => {
+        if (props.USER.role === 2) {
+            setModalOpen(false)
+        } else {
+            setModalOpen(false)
+            setRedirectToLogin(true)
         }
     }
 
-    return (
-        <div>
-            <Container>
+    const { name, image, stock, price, description } = data
+    if (redirectToLogin) {
+        return <Redirect to="/login" />
+    }
+
+    if (data) {
+        return (
+            <div className='paddingatas'>
+                <Modal centered toggle={()=>setModalOpen(false)} isOpen={modalOpen}>
+                    <ModalBody>
+                        {
+                            props.USER.role=== 2 ?
+                            'maaf anda admin'
+                            :
+                            'Maaf Anda harus login dahulu'
+                        }
+                    </ModalBody>
+                    <ModalFooter>
+                        <button className='btn btn-primary' onClick={onToLoginClick}>OK</button>
+                    </ModalFooter>
+                </Modal>
+                <div className="row">
+                    <div className="col-md-4 p-2">
+                        <div className="product-detail">
+                            <img src={API_URL + image} alt={name} height='600px' width='100%' className='rounded'/>
+                        </div>
+                    </div>
+                    <div className="col-md-8 p-2">
+                        <div className='border-headerdetail'>
+                            <div className='font-weight-bolder font-nameprod'>
+                                {name}
+                            </div>
+                            <div className='font-typographysmall'>
+                                <span className='font-weight-bold'>{0}&nbsp;X</span> dibeli
+                            </div>
+                        </div>
+                        <div className='border-headerdetail' style={{lineHeight:'80px'}}>
+                            <div className="row">
+                                <div className="col-md-1 font-typographymed">
+                                   Stok
+                                </div>
+                                <div className="col-md-11">
+                                    {stock}pcs
+                                </div>
+                            </div>
+                        </div>
+                        <div className=' border-headerdetail' style={{lineHeight:'80px'}}>
+                            <div className="row" style={{verticalAlign:'center'}}>
+                                <div className="col-md-1 font-typographymed" >
+                                   Harga
+                                </div>
+                                <div className="col-md-11 font-harga">
+                                    {changetoRupiah(price*qty)}
+                                </div>                               
+                            </div>
+                        </div>
+                        <div className=' border-headerdetail' >
+                            <div className="row" >
+                                <div className="col-md-1 font-typographymed py-3">
+                                   Jumlah
+                                </div>
+                                <div className="col-md-11 d-flex py-2">
+                                    <button className='btn btn-primary' disabled={qty<=1?true:false} onClick={()=>setQty(qty-1)}>-</button>
+                                    <div className='rounded' style={{border:'1px black solid'}} >
+                                        <input 
+                                            type="text" 
+                                            style={{width:'100px',height:'60px',textAlign:'center',backgroundColor:'transparent',border:'0px'}} 
+                                            value={qty} 
+                                            // onChange={qtychange}
+                                        />
+                                    </div>
+                                    {/* <button className='btn btn-primary' disabled={qty>=stock?true:false} onClick={()=>setqty(parseInt(qty)+1)}>+</button> */}
+                                </div>
+                            </div>
+                        </div>
+                        <div className=' border-headerdetail' style={{lineHeight:'80px'}}>
+                            {/* <button className='btn btn-success' onClick={sendToCart}>Beli</button> */}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
+    return <div>Loading....</div>
+}
+
+const mapStateToProps = (state) => {
+    return {
+        USER: state.Auth
+    }
+}
+
+export default connect (mapStateToProps) (ProductDetail)
+
+
+
+{/* <Container>
                 <Row classname="col-md-12">
                     <Col classname="col-md-4 p-4">
                         <img src={image} alt={name} width="100%" classname="rounded" />
@@ -194,7 +307,4 @@ const ProductDetail = (props) => {
                         </Row>
                     </Col>
                 </Row>
-            </Container>
-        </div>
-    )
-}
+            </Container> */}

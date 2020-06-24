@@ -7,6 +7,7 @@ import { MDBBtn, MDBIcon } from 'mdbreact'
 import { Card, CardBody, CardTitle, CardSubtitle, CardImg, Button } from 'reactstrap'
 import Fade from 'react-reveal/Fade'
 import {FaCartPlus} from 'react-icons/fa'
+import { MDBNavLink } from 'mdbreact'
 
 
 
@@ -37,10 +38,12 @@ class AllProduct extends React.Component {
             return (
                 <div key={index} className='p-3' style={{width:'20%'}}>
                     <Card>
-                        <div style={{height:300,width:'100%'}}>
+                    <Link to={'/productdetail/' + val.id}>Login
+                        <div style={{height:300,width:'100%'}} >
                             <img src={API_URL + val.image} height='100%' width='100%' alt=""/>
                             <div className='kotakhitam'>
-                                <Link to={`/productdetail/${val.id}`} className='tombolebuynow'>
+                                {/* <Link to={`/productdetail/${val.id}`} className='tombolebuynow'> */}
+                                <Link to={'/productdetail/' + val.id} className='tombolebuynow'>
                                     <button className='tomboldalam'><FaCartPlus/></button>
                                 </Link>
                             </div>  
@@ -50,8 +53,12 @@ class AllProduct extends React.Component {
                             <CardSubtitle className='mb-2'>{'Rp.'+Numeral(val.price).format(0.0)}</CardSubtitle>
                             <button disabled className='rounded-pill px-2 btn-primary' >{val.categoryid.name}</button>
                         </CardBody>
+                        </Link>
                     </Card>
                 </div>
+
+
+
 
                 // <div key={index}>
                 //     <Fade bottom>

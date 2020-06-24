@@ -11,6 +11,7 @@ import ManageAdmin from './screens/ManageAdmin/ManageAdminScreen'
 import ManageTransaction from './screens/ManageTransaction/ManageTransactionScreen'
 import NotFound from './components/notfound/notFound'
 import AllProduct from './components/all-product/AllProduct'
+import ProductDetail from './components/product-detail/ProductDetail'
 
 import { Switch, Route } from 'react-router-dom'
 import Axios from 'axios'
@@ -56,6 +57,7 @@ function App ({ KeepLogin }) {
         <Route exact path="/manageadmin" component={ManageAdmin} />
         <Route exact path="/managetransaksi" component={ManageTransaction} />
         <Route exact path="/allproduct" component={AllProduct} />
+        <Route exact path="/productdetail/:idprod" component={ProductDetail} />
 
         <Route path='/*' exact component={NotFound} />
 
