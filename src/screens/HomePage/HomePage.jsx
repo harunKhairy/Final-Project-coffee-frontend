@@ -22,7 +22,7 @@ class HomePage extends React.Component {
 
     async componentDidMount() {
         try {
-            let response = await Axios.get(`${API_URL}/product/getprodhome`)
+            let response = await Axios.get(`${API_URL}/product/getprod`)
             this.setState({
                 // categories: response.data.category,
                 products: response.data.product,
@@ -37,7 +37,7 @@ class HomePage extends React.Component {
         return this.state.products.map((val, index) => {
             return (
                 
-                <div className="py-5" key={index}>
+                <div className="p-2" key={index}>
                     <Zoom  bottom cascade>
                         <MDBCol style={{ maxWidth: "22rem",}}>
                             <MDBCard >
@@ -48,8 +48,8 @@ class HomePage extends React.Component {
                                     waves/>
 
                                 <MDBCardBody>
-                                    {/* <MDBCardTitle>{val.name}</MDBCardTitle> */}
                                     <MDBCardText className="font-weight-bolder">{val.name}</MDBCardText>
+                                    {/* <MDBCardTitle>{val.name}</MDBCardTitle> */}
                                     <MDBCardText>{val.catname}</MDBCardText>
                                     <MDBCardText>{'Rp.'+Numeral(val.price).format(0.0)}</MDBCardText>
                                     <MDBBtn href={'/productdetail/' + val.id}>Detail</MDBBtn>
@@ -66,28 +66,31 @@ class HomePage extends React.Component {
     render () {
         return (
             <div>
-                <div className='Container' >
-                <video autoPlay="autoplay" loop="loop" muted className='Video'>
-                    <source src={videoSource} type="video/mp4" />
-                </video>
+                <div>
+                    <div className='Container' >
+                        <video autoPlay="autoplay" loop="loop" muted className='Video'>
+                            <source src={videoSource} type="video/mp4" />
+                        </video>
 
-                <div className='Content'>
-                    <div className='SubContent'>
-                        <h1>Selamat datang di Kopikopiko (KKK)</h1>
-                        <p>'Kami tidak menjual kopi hitam'</p>
-                        <button 
-                            type="button" 
-                            className="btn btn-outline-white"
-                            >
-                                Shop now
-                        </button>
+                        <div className='Content'>
+                            <div className='SubContent'>
+                                <h1>Selamat datang di Kopikopiko (KKK)</h1>
+                                <p>'Kami tidak menjual kopi hitam'</p>
+                                <button 
+                                    type="button" 
+                                    className="btn btn-outline-white"
+                                    >
+                                        Shop now
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div>
-            {this.renderProducts()}
-            </div>
+                
+                <div className="p-2 d-flex flex-wrap justify-content-center widthmaxcontent">
+                    {this.renderProducts()}
+                </div>
+                {/* widthmaxcontent */}
 
             </div>
 

@@ -5,6 +5,7 @@ import { API_URL } from '../../support/ApiUrl';
 import { Redirect } from 'react-router-dom';
 import { changetoRupiah } from '../../support/changeToRp'
 import { connect } from 'react-redux'
+import { MDBTable, MDBTableBody, MDBCard, MDBCardImage, MDBRow, MDBCol, MDBContainer, MDBBtn } from 'mdbreact';
 
 
 const ProductDetail = (props) => {
@@ -159,7 +160,86 @@ const ProductDetail = (props) => {
                         <button className='btn btn-primary' onClick={onToLoginClick}>OK</button>
                     </ModalFooter>
                 </Modal>
-                <div className="row">
+                
+                <div>
+                    <div>
+                        
+                <MDBContainer>
+                    <MDBRow className="col-md-12">
+                        <MDBCol className="col-md-5 p-1">
+                            <MDBCard>
+                                <MDBCardImage
+                                    top
+                                    src={API_URL + image}
+                                    overlay='white-slight'
+                                    hover
+                                    waves
+                                    alt={name}
+                                />
+                            </MDBCard>
+                        </MDBCol>
+
+                        <MDBCol className="col-md-7 col-12 p-1">
+                        <MDBCol className="p-3">
+                            <h2>{name}</h2>
+                        </MDBCol>
+
+                            <MDBTable>
+                            <MDBTableBody>
+                                <tr>
+                                    <td>{description}</td>
+                                </tr>
+                                <tr>
+                                    <td>Stock &nbsp; &nbsp; {stock}</td>
+                                </tr>
+                                <tr>
+                                    <td>Price &nbsp; &nbsp; {changetoRupiah(price*qty)}</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Quantity
+                                        &nbsp; &nbsp;
+                                        <MDBRow>
+                                        <MDBBtn className='btn-sm px-3 py-2 rounded-pill' color="brown" disabled={qty<=1?true:false}> &#10134; </MDBBtn>
+                                        <div className='rounded' style={{border:'1px black solid'}} >
+                                                    <input 
+                                                        type="text" 
+                                                        style={{width:'40px',height:'40px',textAlign:'center',backgroundColor:'transparent',border:'0px'}} 
+                                                        value={qty} 
+                                                        // onChange={qtyOnchange}
+                                                    />
+                                        </div>
+                                        <MDBBtn className='btn-sm px-3 py-2 rounded-pill' color="brown" disabled={qty<=stock?true:false}> &#10133; </MDBBtn>
+                                        </MDBRow>
+                                    
+                                    </td>
+                                </tr>
+                            </MDBTableBody>
+                            </MDBTable>
+                            <MDBRow className="pl-2">
+                                <MDBBtn className='btn rounded-pill' color="brown" > Add to cart </MDBBtn>
+                            </MDBRow>
+                        </MDBCol>
+                    </MDBRow>
+                </MDBContainer>
+
+
+                        {/* <img src={API_URL + image} alt={name} height='600px' width='100%' className='rounded'/> */}
+                    </div>
+
+                    {/* <div>
+                <MDBTable>
+                    
+                    </MDBTable>
+                </div> */}
+
+                </div>
+
+                
+
+
+
+                {/* <div className="row">
                     <div className="col-md-4 p-2">
                         <div className="product-detail">
                             <img src={API_URL + image} alt={name} height='600px' width='100%' className='rounded'/>
@@ -208,16 +288,16 @@ const ProductDetail = (props) => {
                                             value={qty} 
                                             // onChange={qtychange}
                                         />
-                                    </div>
+                                    </div> */}
                                     {/* <button className='btn btn-primary' disabled={qty>=stock?true:false} onClick={()=>setqty(parseInt(qty)+1)}>+</button> */}
-                                </div>
+                                {/* </div>
                             </div>
                         </div>
-                        <div className=' border-headerdetail' style={{lineHeight:'80px'}}>
+                        <div className=' border-headerdetail' style={{lineHeight:'80px'}}> */}
                             {/* <button className='btn btn-success' onClick={sendToCart}>Beli</button> */}
-                        </div>
+                        {/* </div>
                     </div>
-                </div>
+                </div> */}
             </div>
         )
     }
