@@ -115,12 +115,12 @@ export const AfterVerified = (data) => {
     }
 }
 
-export const CartChange = (data) => {
-    return {
-        type: 'ADD_CART',
-        payload: data,
-    }
-}
+// export const CartChange = (data) => {
+//     return {
+//         type: 'ADD_CART',
+//         payload: data,
+//     }
+// }
 
 export const ErrorMessageClear = () => {
     return {

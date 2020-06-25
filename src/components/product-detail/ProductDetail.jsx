@@ -6,6 +6,8 @@ import { Redirect } from 'react-router-dom';
 import { changetoRupiah } from '../../support/changeToRp'
 import { connect } from 'react-redux'
 import { MDBTable, MDBTableBody, MDBCard, MDBCardImage, MDBRow, MDBCol, MDBContainer, MDBBtn } from 'mdbreact';
+import Swal from 'sweetalert2';
+import { GetCart } from '../../redux/actions'
 
 
 const ProductDetail = (props) => {
@@ -18,117 +20,57 @@ const ProductDetail = (props) => {
     // let sql = `select * from products where id=${id}`
 
     useEffect(() => {
-        // const id = props.match.params.idprod
-        // Axios.get(`${API_URL}/product/productdetail/${props.match.params.idprod}`)
         Axios.get(`${API_URL}/product/productdetail/${props.match.params.idprod}`)
-        // Axios.get(`${API_URL}/product/getprod/${id}`)
         .then(response => {
             setData(response.data)
         }).catch(error => {
             console.log(error)
         })
-    // }, [])
     }, [])
 
     const qtyOnChange = (event) => {
-        const { value } = event.target
-        if (value === '') {
+        // const { value } = event.target
+        if (event.target.value === '') {
             setQty(0)
         }
-        if (Number (value)) {
+        if (Number (event.target.value)) {
             if (qty === 0) {
-                setQty(value[1])
+                setQty(event.target.value[1])
             } else {
-                if (value > stock) {
+                if (event.target.value > stock) {
                     setQty(stock)
-                } else if (value < 1) {
+                } else if (event.target.value < 1) {
                     setQty(1)
                 } else {
-                    setQty(value)
+                    setQty(event.target.value)
                 }
             }
         }
     }
 
-    // const sendToCart = () => {
-    //     if (props.USER.islogin && props.USER.role === '1') {
-    //         let objTransaction = {
-    //             status: 'oncart',
-    //             userid: props.USER.id
-    //         }
-            // Axios.get(`${API_URL}/transactions?status=oncart&userId=${props.User.id}`)
-            // .then((res1)=>{
-            //     if(res1.data.length){
-            //         var objdetails={
-            //             transactionId:res1.data[0].id,
-            //             productId:data.id,
-            //             qty:qty
-            //         }
-            //         Axios.get(`${API_URL}/transactiondetails?transactionId=${res1.data[0].id}&&productId=${data.id}`)
-            //         .then((res4)=>{
-            //             if(res4.data.length){
-            //                 Axios.patch(`${API_URL}/transactiondetails/${res4.data[0].id}`,{
-            //                     qty:res4.data[0].qty+qty
-            //                 }).then((res5)=>{
-            //                     Axios.get(`${API_URL}/transactions?_embed=transactiondetails&userId=${props.User.id}&status=oncart`)
-            //                     .then((res2)=>{//gunanya untuk mennentukan jumlah dari cartnya
-            //                         props.CartChange(res2.data[0].transactiondetails.length)  
-            //                         MySwal.fire({
-            //                             icon: 'success',
-            //                             title: 'Berhasil masuk cart',
-            //                             // text: 'barang masuk ke cart',
-            //                         })
-            //                     }).catch((err)=>{
-            //                         console.log(err)
-            //                     })
-            //                 })
-            //             }else{
-            //                 Axios.post(`${API_URL}/transactiondetails`,objdetails)
-            //                 .then((res3)=>{
-            //                     console.log(res3.data)
-            //                     Axios.get(`${API_URL}/transactions?_embed=transactiondetails&userId=${props.User.id}&status=oncart`)
-            //                     .then((res2)=>{//gunanya untuk mennentukan jumlah dari cartnya
-            //                         props.CartChange(res2.data[0].transactiondetails.length)  
-            //                         MySwal.fire({
-            //                             icon: 'success',
-            //                             title: 'Berhasil masuk cart',
-            //                             // text: 'barang masuk ke cart',
-            //                         })
-            //                     }).catch((err)=>{
-            //                         console.log(err)
-            //                     })
-            //                 })
-            //             }
-            //         })
-            //     }else{
-            //         Axios.post(`${API_URL}/transactions`,objtransaction)
-            //         .then((res2)=>{
-            //             var objdetails={
-            //                 transactionId:res2.data.id,
-            //                 productId:data.id,
-            //                 qty:qty
-            //             }
-            //             Axios.post(`${API_URL}/transactiondetails`,objdetails)
-            //             .then((res3)=>{
-            //                 Axios.get(`${API_URL}/transactions?_embed=transactiondetails&userId=${props.User.id}&status=oncart`)
-            //                 .then((res2)=>{
-            //                     props.CartChange(res2.data[0].transactiondetails.length)  
-            //                     MySwal.fire({
-            //                         icon: 'success',
-            //                         title: 'Berhasil masuk cart',
-            //                         // text: 'barang masuk ke cart',
-            //                     })
-            //                 }).catch((err)=>{
-            //                     console.log(err)
-            //                 })
-            //             })
-            //         })
-            //     }
-            // }).catch((err)=>{
-            //     console.log(err)
-            // })
-    //     }
-    // }
+    const sendToCart = () => {
+        if (props.USER.islogin && props.USER.role === 1) {
+            let objTransaction = {
+                userid: props.USER.id,
+                productid: props.match.params.idprod,
+                qty,
+                username: props.USER.username
+            }
+            Axios.post(`${API_URL}/cart/sendtocart`, objTransaction)
+            .then( response => {
+                console.log(response)
+                Swal.fire({
+                    icon: 'success',
+                    title: 'added to cart!'
+                })
+                props.GetCart()
+            }).catch( error => {
+                console.log(error.message)
+            })
+        } else {
+            setModalOpen(true)
+        }
+    }
 
     const onToLoginClick = () => {
         if (props.USER.role === 2) {
@@ -200,16 +142,29 @@ const ProductDetail = (props) => {
                                         Quantity
                                         &nbsp; &nbsp;
                                         <MDBRow>
-                                        <MDBBtn className='btn-sm px-3 py-2 rounded-pill' color="brown" disabled={qty<=1?true:false}> &#10134; </MDBBtn>
+                                        <MDBBtn 
+                                            className='btn-sm px-3 py-2 rounded-pill' 
+                                            color="brown" 
+                                            disabled={ qty <= 1 ? true : false }
+                                            onClick={()=> setQty(qty - 1)}
+                                            // onClick={console.log('kurang')}
+                                            > &#10134; </MDBBtn>
                                         <div className='rounded' style={{border:'1px black solid'}} >
                                                     <input 
                                                         type="text" 
                                                         style={{width:'40px',height:'40px',textAlign:'center',backgroundColor:'transparent',border:'0px'}} 
                                                         value={qty} 
-                                                        // onChange={qtyOnchange}
+                                                        onChange={qtyOnChange}
+                                                        // name={qty}
                                                     />
                                         </div>
-                                        <MDBBtn className='btn-sm px-3 py-2 rounded-pill' color="brown" disabled={qty<=stock?true:false}> &#10133; </MDBBtn>
+                                        <MDBBtn 
+                                            className='btn-sm px-3 py-2 rounded-pill' 
+                                            color="brown" 
+                                            disabled={ qty >= stock ? true : false }
+                                            onClick={()=> setQty(qty + 1)}
+                                            // onClick={console.log('tambah')}
+                                            > &#10133; </MDBBtn>
                                         </MDBRow>
                                     
                                     </td>
@@ -217,87 +172,19 @@ const ProductDetail = (props) => {
                             </MDBTableBody>
                             </MDBTable>
                             <MDBRow className="pl-2">
-                                <MDBBtn className='btn rounded-pill' color="brown" > Add to cart </MDBBtn>
+                                <MDBBtn 
+                                    className='btn rounded-pill' 
+                                    color="brown" 
+                                    onClick={sendToCart}
+                                    > Add to cart </MDBBtn>
                             </MDBRow>
                         </MDBCol>
                     </MDBRow>
                 </MDBContainer>
 
 
-                        {/* <img src={API_URL + image} alt={name} height='600px' width='100%' className='rounded'/> */}
                     </div>
-
-                    {/* <div>
-                <MDBTable>
-                    
-                    </MDBTable>
-                </div> */}
-
                 </div>
-
-                
-
-
-
-                {/* <div className="row">
-                    <div className="col-md-4 p-2">
-                        <div className="product-detail">
-                            <img src={API_URL + image} alt={name} height='600px' width='100%' className='rounded'/>
-                        </div>
-                    </div>
-                    <div className="col-md-8 p-2">
-                        <div className='border-headerdetail'>
-                            <div className='font-weight-bolder font-nameprod'>
-                                {name}
-                            </div>
-                            <div className='font-typographysmall'>
-                                <span className='font-weight-bold'>{0}&nbsp;X</span> dibeli
-                            </div>
-                        </div>
-                        <div className='border-headerdetail' style={{lineHeight:'80px'}}>
-                            <div className="row">
-                                <div className="col-md-1 font-typographymed">
-                                   Stok
-                                </div>
-                                <div className="col-md-11">
-                                    {stock}pcs
-                                </div>
-                            </div>
-                        </div>
-                        <div className=' border-headerdetail' style={{lineHeight:'80px'}}>
-                            <div className="row" style={{verticalAlign:'center'}}>
-                                <div className="col-md-1 font-typographymed" >
-                                   Harga
-                                </div>
-                                <div className="col-md-11 font-harga">
-                                    {changetoRupiah(price*qty)}
-                                </div>                               
-                            </div>
-                        </div>
-                        <div className=' border-headerdetail' >
-                            <div className="row" >
-                                <div className="col-md-1 font-typographymed py-3">
-                                   Jumlah
-                                </div>
-                                <div className="col-md-11 d-flex py-2">
-                                    <button className='btn btn-primary' disabled={qty<=1?true:false} onClick={()=>setQty(qty-1)}>-</button>
-                                    <div className='rounded' style={{border:'1px black solid'}} >
-                                        <input 
-                                            type="text" 
-                                            style={{width:'100px',height:'60px',textAlign:'center',backgroundColor:'transparent',border:'0px'}} 
-                                            value={qty} 
-                                            // onChange={qtychange}
-                                        />
-                                    </div> */}
-                                    {/* <button className='btn btn-primary' disabled={qty>=stock?true:false} onClick={()=>setqty(parseInt(qty)+1)}>+</button> */}
-                                {/* </div>
-                            </div>
-                        </div>
-                        <div className=' border-headerdetail' style={{lineHeight:'80px'}}> */}
-                            {/* <button className='btn btn-success' onClick={sendToCart}>Beli</button> */}
-                        {/* </div>
-                    </div>
-                </div> */}
             </div>
         )
     }
@@ -311,80 +198,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect (mapStateToProps) (ProductDetail)
-
-
-
-{/* <Container>
-                <Row classname="col-md-12">
-                    <Col classname="col-md-4 p-4">
-                        <img src={image} alt={name} width="100%" classname="rounded" />
-                    </Col>
-
-                    <Col classname="col-md-8 p-4">
-                        <Row classname="p-4">
-                            <h2>{name}</h2>
-                        </Row>
-
-                        <Table responsive>
-                            <tr>
-                                <td>{description}</td>
-                            </tr>
-
-                            <tr>
-                                <td>Stock {stock}</td>
-                            </tr>
-
-                            <tr>
-                                <td>Price {ChangeToRp(price*qty)}</td>
-                            </tr>
-                            
-                            <tr>
-                                <td>
-                                    Quantity
-                                    <br/>
-                                    <br/>
-                                    <Row>
-                                        <br/>
-                                        <Button
-                                            classname="btn-sm px-3 py-2 rounded-pill"
-                                            color="brown"
-                                            disable={ qty <= 1 ? true : false }
-                                            onClick={ () => setQty(qty-1) }
-                                            >
-                                            -
-                                        </Button>
-                                            <div classname="rounded" style={{border: "1px solid black"}}>
-                                                <input
-                                                    type="text"
-                                                    style={{width: "40px", height: "40px", textAlign: "center", backgrounColor: "transparent", border:"1px"}}
-                                                    value={qty}
-                                                    onChange={qtyOnChange}
-                                                    />
-                                            </div>
-                                        <Button
-                                            className='btn-sm px-3 py-2 rounded-pill'
-                                            color="brown"
-                                            disabled={ qty >= stock ? true : false }
-                                            onClick={ () => setqty(parseInt(qty) + 1)}
-                                            >
-                                            +
-                                        </Button>
-
-                                    </Row>
-                                </td>
-                            </tr>
-                        </Table>
-
-                        <Row>
-                            <Button
-                                classname="btn rounded-pill"
-                                color="brown"
-                                onClick={sendToCart}
-                                >
-                                Add To Cart
-                            </Button>
-                        </Row>
-                    </Col>
-                </Row>
-            </Container> */}
+export default connect (mapStateToProps, {GetCart}) (ProductDetail)
