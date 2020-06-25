@@ -12,7 +12,7 @@ import ManageTransaction from './screens/ManageTransaction/ManageTransactionScre
 import NotFound from './components/notfound/notFound'
 import AllProduct from './components/all-product/AllProduct'
 import ProductDetail from './components/product-detail/ProductDetail'
-import Cart from './components/cart/Card.component'
+import Cart from './components/cart/Cart.component'
 // import TestTing from './screens/testting/testting'
 
 import { Switch, Route } from 'react-router-dom'
