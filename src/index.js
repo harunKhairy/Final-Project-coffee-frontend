@@ -19,6 +19,7 @@ import logger from 'redux-logger';
 
 
 
+
 const store = createStore(Reducers, {}, applyMiddleware(ReduxThunk, logger))
 
 

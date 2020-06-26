@@ -93,18 +93,20 @@ class AllProduct extends React.Component {
 
     render() {
         return (
-            <div className='paddingatas'>
-                <div className='px-5 pt-3'>
-                    <input type="search" placeholder='Search...' className='form-control mb-2 mx-2' style={{width:'20%'}} onChange={this.onInputSearch}/>
+            <div>
+
+                {/* search bar */}
+                <div className="px-5 pt-5">
+                    <input type="search" placeholder='Search...' className='form-control mb-2 mx-2 ' style={{width:'20%'}} onChange={this.onInputSearch}/>
                     
-                    <div>
-                        <MDBBtn outline className='rounded-pill mr-2 mt-2 p-1 px-2' onClick={()=>this.onCategorySelect(0,'All Categories')}>All Categories</MDBBtn>
+                    <div >
+                        <MDBBtn outline className='rounded-pill mr-2 mt-2 p-1 px-2 ' onClick={()=>this.onCategorySelect(0,'All Categories')}>All Categories</MDBBtn>
                         {
                             this.state.categories.length === 0 ?
                             null :
                             this.state.categories.map((val)=>{
                                 return(
-                                    <MDBBtn outline className='rounded-pill mr-2 mt-2 p-1 px-2' key={val.id} onClick={()=>this.onCategorySelect(val.id, val.name)}>{val.name}</MDBBtn>
+                                    <MDBBtn outline  color="" className='rounded-pill mr-2 mt-2 p-1 px-2' key={val.id} onClick={()=>this.onCategorySelect(val.id, val.name)}>{val.name}</MDBBtn>
                                 )
                             })
                         }
@@ -115,7 +117,7 @@ class AllProduct extends React.Component {
                     </div>
 
 
-                    <div className="pl-5 d-flex flex-wrap justify-content-start widthmaxcontent">
+                    <div className=" pl-5 d-flex flex-wrap justify-content-start widthmaxcontent">
                         {this.renderProducts()}
                     </div>
 

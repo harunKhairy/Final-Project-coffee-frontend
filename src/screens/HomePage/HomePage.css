@@ -5,8 +5,7 @@
     min-height: 200px;
     max-height: 400px;
     overflow: hidden;
-    /* margin-bottom: 500px; */
-    margin-bottom: auto;
+    margin-bottom: 100px;
 }
 
 .Video {
