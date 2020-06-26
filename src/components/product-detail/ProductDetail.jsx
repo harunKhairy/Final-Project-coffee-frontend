@@ -56,7 +56,7 @@ const ProductDetail = (props) => {
                 qty,
                 username: props.USER.username
             }
-            Axios.post(`${API_URL}/cart/sendtocart`, objTransaction)
+            Axios.post(`${API_URL}/transactions/sendtocart`, objTransaction)
             .then( response => {
                 // console.log(response)
                 Swal.fire({

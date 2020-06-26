@@ -5,7 +5,7 @@ import { API_URL } from '../../support/ApiUrl'
 export const GetCart = () => {
     return (dispatch) => {
         let userid = window.localStorage.getItem('iduser')
-        Axios.get(`${API_URL}/cart/totalcart/${userid}`)
+        Axios.get(`${API_URL}/transactions/gettotalcart/${userid}`)
         .then( response => {
             console.log(response.data[0])
             dispatch({
