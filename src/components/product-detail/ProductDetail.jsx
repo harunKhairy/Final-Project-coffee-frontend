@@ -26,7 +26,7 @@ const ProductDetail = (props) => {
         }).catch(error => {
             console.log(error)
         })
-    }, [])
+    }, [props.match.params.idprod])
 
     const qtyOnChange = (event) => {
         // const { value } = event.target
@@ -58,14 +58,14 @@ const ProductDetail = (props) => {
             }
             Axios.post(`${API_URL}/cart/sendtocart`, objTransaction)
             .then( response => {
-                console.log(response)
+                // console.log(response)
                 Swal.fire({
                     icon: 'success',
                     title: 'added to cart!'
                 })
                 props.GetCart()
             }).catch( error => {
-                console.log(error.message)
+                console.log(error.message )
             })
         } else {
             setModalOpen(true)
@@ -179,6 +179,7 @@ const ProductDetail = (props) => {
                                     className='btn rounded-pill' 
                                     color="brown" 
                                     onClick={sendToCart}
+
                                     > Add to cart </MDBBtn>
                             </MDBRow>
                         </MDBCol>

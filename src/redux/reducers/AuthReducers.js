@@ -13,14 +13,14 @@ import {
 
 const INITIAL_STATE = {
     username: '',
+    password: '',
     id: 0,
+    role: '',
     isloading: false,
     islogin: false,
     errormess: '',
     // cart: 0,
-    role: '',
     token: '',
-    password: '',
     isverified: 0
 }
 

@@ -77,6 +77,7 @@ export const LoginUser = ({ username, password }) => {
             .then( response => {
                 if (response.data.status) {
                     localStorage.setItem('token', response.data.token)
+                    localStorage.setItem('iduser', response.data.id)
                     dispatch ({
                         type: USER_LOGIN_SUCCESS,
                         payload: response.data,
