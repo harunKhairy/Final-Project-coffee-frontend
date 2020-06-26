@@ -10,7 +10,8 @@ export const GetCart = () => {
             console.log(response.data[0])
             dispatch({
                 type: GET_CART_DATA,
-                payload: action.data[0].totalqty
+                payload: response.data[0].totalqty
+                // payload: response.data[0]
             })
         })
     }
