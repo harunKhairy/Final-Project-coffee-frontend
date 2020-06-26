@@ -81,7 +81,7 @@ export const LoginUser = ({ username, password }) => {
                     dispatch ({
                         type: USER_LOGIN_SUCCESS,
                         payload: response.data,
-                        jumlahcart: response.data.jumlahcart
+                        // totalqty: response.data.totalqty
                     })
                 
                 } else {
@@ -101,11 +101,11 @@ export const LoginUser = ({ username, password }) => {
     }
 }
 
-export const KeepLogin = (data, jumlahcart) => {
+export const KeepLogin = (data) => {
     return {
         type: USER_LOGIN_SUCCESS,
         payload: data,
-        jumlahcart: jumlahcart
+        // totalqty: totalqty
     }
 }
 
@@ -116,15 +116,40 @@ export const AfterVerified = (data) => {
     }
 }
 
-// export const CartChange = (data) => {
-//     return {
-//         type: 'ADD_CART',
-//         payload: data,
-//     }
-// }
+export const CartChange = (data) => {
+    return {
+        type: 'ADD_CART',
+        payload: data,
+    }
+}
 
 export const ErrorMessageClear = () => {
     return {
         type: 'ERROR_MESSAGE_CLEAR'
     }
+}
+
+export const getdata=()=>{
+    Axios.get(`${API_URL}/transactions/?_embed=transactiondetails&userId=${id}&status=oncart`)
+    .then((res)=>{
+        if(res.data.length){
+            return res.data[0].transactiondetails.length
+        }else{
+            return 0
+        }
+    }).catch((err)=>{
+        console.log(err)
+    })
+}
+export const getdata=()=>{
+    Axios.get(`${API_URL}/transactions/?_embed=transactiondetails&userId=${id}&status=oncart`)
+    .then((res)=>{
+        if(res.data.length){
+            return res.data[0].transactiondetails.length
+        }else{
+            return 0
+        }
+    }).catch((err)=>{
+        console.log(err)
+    })
 }

@@ -1,26 +1,3 @@
-// import React from 'react'
-
-
-// class CartComponent extends React.Component {
-
-//     state = {
-//         isicart: [],
-//         qty: 0
-//     }
-
-
-
-//     render() {
-//         return (
-//             <div>
-//                 Cart
-//             </div>
-//         )
-//     }
-// }
-
-// export default CartComponent
-
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import Axios from 'axios'
@@ -32,7 +9,7 @@ import {changetoRupiah} from '../../support/changeToRp'
 import { AiOutlineDelete } from 'react-icons/ai';
 import { Link } from 'react-router-dom'
 // import SquareButton  from '../components/button'
-import {GetCart} from '../../redux/actions'
+import { GetCart } from '../../redux/actions'
 const MySwal = withReactContent(Swal)
 
 
@@ -49,10 +26,10 @@ class Cart extends Component {
 
     getdata=()=>{
         console.log('masuk get data')
-        Axios.get(`${API_URL}/cart/getcartdata/${this.props.User.id}`)
+        Axios.get(`${API_URL}/transactions/getcartdata/${this.props.User.id}`)
         .then((res)=>{
             console.log(res.data)
-            this.setState({isicart:res.data})
+            this.setState({isicart:res.data.length})
         })
     }
 
@@ -68,7 +45,7 @@ class Cart extends Component {
             confirmButtonText: 'Yes, delete it!'
           }).then((result) => {
             if (result.value) {
-              Axios.get(`${API_URL}/cart/deletecart/${id}`)
+              Axios.get(`${API_URL}/transactions/deletecart/${id}`)
               .then((res)=>{
                   MySwal.fire(
                     'Deleted!',
@@ -86,7 +63,7 @@ class Cart extends Component {
     }
 
     onminqty=(index,id)=>{
-        Axios.get(`${API_URL}/cart/decreaseqty/${id}`)
+        Axios.get(`${API_URL}/transactions/minqty/${id}`)
         .then((res)=>{
             this.getdata()
             this.props.GetCart()
@@ -94,7 +71,7 @@ class Cart extends Component {
     }
 
     onplusqty=(index,id)=>{
-        Axios.get(`${API_URL}/cart/increaseqty/${id}`)
+        Axios.get(`${API_URL}/transaction/plusqty/${id}`)
         .then((res)=>{
             this.getdata()
             this.props.GetCart()
