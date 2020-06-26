@@ -34,10 +34,10 @@ class AllProduct extends React.Component {
     }
 
     renderProducts = () => {
-        return this.state.searchProduct.map((val, index) => {
+        return this.state.products.map((val, index) => {
             return (
                 
-                <div className="py-5">
+                <div className="p-4" key={index}>
                     <Zoom  bottom cascade>
                         <MDBCol style={{ maxWidth: "22rem",}}>
                             <MDBCard >

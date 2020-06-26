@@ -4,17 +4,24 @@ MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggle
 MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem
 } from "mdbreact";
 import { Link } from 'react-router-dom';
-import { ErrorMessageClear } from '../../redux/actions'
+import { ErrorMessageClear, GetCart } from '../../redux/actions'
 import {FaUserCircle} from 'react-icons/fa'
 import {FiShoppingCart} from 'react-icons/fi'
 import { connect } from 'react-redux'
+
+import {FiLogOut} from "react-icons/fi"
+import {FaRegListAlt} from "react-icons/fa"
+import {FiHeart} from "react-icons/fi"
+import {FiSettings} from "react-icons/fi"
+import './Header.styles.css'
 
 
 
 
 class Header extends Component {
 state = {
-  isOpen: false
+  isOpen: false,
+  shoppingBag: 0
 };
 
 toggleCollapse = () => {
@@ -23,7 +30,12 @@ toggleCollapse = () => {
 
 logoutHandler = () => {
   localStorage.removeItem("iduser")
+  localStorage.removeItem('token')
   this.props.ErrorMessageClear()
+}
+
+componentDidMount() {
+  this.props.GetCart()
 }
 
 render() {
@@ -47,15 +59,72 @@ render() {
                 null
               }
             </MDBNavItem>
-            
+
+            <MDBNavItem>
               {
-                this.props.USER.role.islogin && this.props.USER.role === 1 ?
-                <MDBNavItem>
-                  {this.props.USER.cart} <FiShoppingCart style={{fontSize:20}}/> Cart
-                </MDBNavItem> :
+                this.props.USER.role === 2 ?
+                <MDBNavLink to="/managetransaksi">manage transaksi</MDBNavLink> :
                 null
               }
-                {
+            </MDBNavItem>
+            
+            <MDBNavItem>
+            {
+                // this.props.USER.role.islogin && this.props.USER.role === 1 ?
+                // <MDBNavItem>
+                //   {this.props.USER.cart} <FiShoppingCart style={{fontSize:20}}/> Cart
+                // </MDBNavItem> :
+                // null
+                this.props.USER.role.islogin && this.props.USER.role === 1 ?
+                  <MDBNavLink to='/cart' style={{color:"black"}}>
+                    <div className="quick-btn">
+                      <FiShoppingCart style={{fontSize:20}}/>
+                      {this.props.QTY !== 0 ? <span className="badge badge-danger label ml-2 text-center" >{this.props.QTY}</span> : null }
+                    </div>
+                  </MDBNavLink> :
+                null
+              }
+            </MDBNavItem>
+
+            <MDBNavItem>
+              {
+                this.props.USER.username ?
+                <MDBDropdown className="black-text">
+                    <MDBDropdownToggle nav caret className="black-text text-uppercase" >
+                      <FaUserCircle style={{color:'#f07474'}}/> HI, {this.props.USER.username} !
+                    </MDBDropdownToggle>
+                      {this.props.USER.role === 1 ?
+                        <MDBDropdownMenu className="right black-text">
+                          <MDBDropdownItem href="#!"> <FiHeart /> Wishlist</MDBDropdownItem>
+                          <MDBDropdownItem href={`/transactionssummary/${this.props.USER.id}`}> <FaRegListAlt /> Transaction History</MDBDropdownItem>
+                          <MDBDropdownItem href="/accountsetting"> <FiSettings /> Account Setting</MDBDropdownItem>
+                          <MDBDropdownItem href="/" onClick={this.logoutHandler}><FiLogOut /> Logout</MDBDropdownItem>
+                          <MDBDropdownItem>
+                          {
+                              this.props.USER.isverified === 0 ?
+                              <Link to='/sendemailverified'>
+                                  <span style={{color:'red'}}>Unverified</span> 
+                              </Link>
+                              :
+                              <span style={{color:'green'}}>verified</span>
+                          }
+                      </MDBDropdownItem>
+                        </MDBDropdownMenu>
+                      :
+                        <MDBDropdownMenu className="right black-text">
+                          <MDBDropdownItem href="/accountsetting"> <FiSettings /> Account Setting</MDBDropdownItem>
+                          <MDBDropdownItem href="/" onClick={this.logoutHandler}><FiLogOut /> Logout</MDBDropdownItem>
+                        </MDBDropdownMenu>
+                    }
+                </MDBDropdown>
+                :
+                null
+              }
+            </MDBNavItem>
+
+
+              
+                {/* {
                   this.props.USER.islogin && this.props.USER.role === 1 ?
                   <MDBNavItem>
                     <MDBNavLink to="/history">
@@ -63,7 +132,7 @@ render() {
                     </MDBNavLink>
                   </MDBNavItem> :
                   null
-                }
+                } */}
 
             <MDBNavItem>
               {
@@ -81,15 +150,9 @@ render() {
               }
             </MDBNavItem>
 
-            <MDBNavItem>
-              {
-                this.props.USER.role === 2 ?
-                <MDBNavLink to="/managetransaksi">manage transaksi</MDBNavLink> :
-                null
-              }
-            </MDBNavItem>
+           
 
-            <MDBNavItem>
+            {/* <MDBNavItem>
               {
                 this.props.USER.username ?
                 <MDBDropdown >
@@ -124,7 +187,7 @@ render() {
               :
               null
               }
-            </MDBNavItem>
+            </MDBNavItem> */}
             
 
             {/* <MDBNavItem>
@@ -144,8 +207,9 @@ render() {
 
 const mapStateToProps = (state) => {
   return {
-    USER: state.Auth
+    USER: state.Auth,
+    QTY: state.Cart.qty
   }
 }
 
-export default connect (mapStateToProps,{ ErrorMessageClear }) (Header);
+export default connect (mapStateToProps,{ ErrorMessageClear, GetCart }) (Header);

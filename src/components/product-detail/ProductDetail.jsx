@@ -22,27 +22,29 @@ const ProductDetail = (props) => {
     useEffect(() => {
         Axios.get(`${API_URL}/product/productdetail/${props.match.params.idprod}`)
         .then(response => {
+            console.log(response.data)
             setData(response.data)
         }).catch(error => {
             console.log(error)
         })
-    }, [props.match.params.idprod])
+    // }, [props.match.params.idprod])
+    }, [])
 
     const qtyOnChange = (event) => {
-        // const { value } = event.target
-        if (event.target.value === '') {
+        const { value } = event.target
+        if (value === '') {
             setQty(0)
         }
-        if (Number (event.target.value)) {
+        if (Number (value)) {
             if (qty === 0) {
-                setQty(event.target.value[1])
+                setQty(value[1])
             } else {
-                if (event.target.value > stock) {
+                if (value > stock) {
                     setQty(stock)
-                } else if (event.target.value < 1) {
+                } else if (value < 1) {
                     setQty(1)
                 } else {
-                    setQty(event.target.value)
+                    setQty(value)
                 }
             }
         }
@@ -53,17 +55,18 @@ const ProductDetail = (props) => {
             let objTransaction = {
                 userid: props.USER.id,
                 productid: props.match.params.idprod,
-                qty,
+                qty: qty,
                 username: props.USER.username
             }
             Axios.post(`${API_URL}/transactions/sendtocart`, objTransaction)
             .then( response => {
-                // console.log(response)
+                console.log(response.data)
                 Swal.fire({
                     icon: 'success',
                     title: 'added to cart!'
                 })
                 props.GetCart()
+                console.log('berhasil masuk cart')
             }).catch( error => {
                 console.log(error.message )
             })
@@ -104,6 +107,7 @@ const ProductDetail = (props) => {
                 </Modal>
                 
                 <div>
+
                     <div>
                         
                 <MDBContainer>
@@ -121,7 +125,7 @@ const ProductDetail = (props) => {
                             </MDBCard>
                         </MDBCol>
 
-                        <MDBCol className="col-md-7 col-12 p-1">
+                        <MDBCol className="col-md-7 col-12 p-1 pl-5">
                         <MDBCol className="p-3">
                             <h2>{name}</h2>
                         </MDBCol>

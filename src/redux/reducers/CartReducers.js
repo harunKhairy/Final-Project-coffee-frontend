@@ -10,7 +10,7 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 qty: action.payload
-            };
+            }
         default:
             return state
     }

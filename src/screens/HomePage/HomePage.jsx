@@ -1,7 +1,7 @@
 import React from 'react'
 import Axios from 'axios'
 import {connect} from 'react-redux'
-import { MDBCarousel,  MDBCarouselInner, MDBCarouselItem, MDBView, MDBMask} from "mdbreact";
+import { MDBCarousel,  MDBCarouselInner, MDBCarouselItem, MDBView, MDBMask, MDBNavLink,  MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCol} from "mdbreact";
 import Numeral from 'numeral'
 import {
     Card, CardBody,
@@ -14,6 +14,7 @@ import {
   import {API_URL} from '../../support/ApiUrl'
 import videoSource from '../../assets/kopi.mp4'
 import './HomePage.css'
+import Zoom from 'react-reveal/Zoom'
 
 
 
@@ -42,25 +43,27 @@ class HomePage extends React.Component {
     renderProducts = () => {
         return this.state.products.map((val, index) => {
             return (
-                <div key={index} className='p-3' style={{width:'30%'}}>
-                    <Card>
-                    <Link to={'/productdetail/' + val.id}>
-                        <div style={{height:300,width:'100%'}} >
-                            <img src={API_URL + val.image} height='70%' width='100%' alt=""/>
-                            <div className='kotakhitam'>
-                                {/* <Link to={`/productdetail/${val.id}`} className='tombolebuynow'> */}
-                                <Link to={'/productdetail/' + val.id} className='tombolebuynow'>
-                                    <button className='tomboldalam'><FaCartPlus/></button>
-                                </Link>
-                            </div>  
-                        </div>
-                        <CardBody style={{height:150}}>
-                            <CardTitle style={{fontWeight:'bold'}} className='mb-2'>{val.name}</CardTitle>
-                            <CardSubtitle className='mb-2'>{'Rp.'+Numeral(val.price).format(0.0)}</CardSubtitle>
-                            <button disabled className='rounded-pill px-2 btn-primary' >{val.categoryid.name}</button>
-                        </CardBody>
-                        </Link>
-                    </Card>
+                <div className="pt-1 pb-5 pl-5 pr-5" key={index}>
+                    <Zoom  bottom cascade>
+                        <MDBCol style={{ maxWidth: "22rem",}}>
+                            <MDBCard >
+                                <MDBCardImage 
+                                    className="img-fluid rounded mx-auto d-block" 
+                                    src={API_URL + val.image} 
+                                    style={{maxHeight: "322px", minWidth: "322px"}}
+                                    waves/>
+
+                                <MDBCardBody>
+                                    {/* <MDBCardTitle>{val.name}</MDBCardTitle> */}
+                                    <MDBCardText className="font-weight-bolder">{val.name}</MDBCardText>
+                                    <MDBCardText>{val.catname}</MDBCardText>
+                                    <MDBCardText>{'Rp.'+Numeral(val.price).format(0.0)}</MDBCardText>
+                                    <MDBBtn href={'/productdetail/' + val.id}>Detail</MDBBtn>
+                                    <MDBBtn href="#"> Buy Now</MDBBtn>
+                                </MDBCardBody>
+                            </MDBCard>
+                        </MDBCol>
+                    </Zoom>
                 </div>
 
                 )
