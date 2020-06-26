@@ -145,6 +145,7 @@ const ProductDetail = (props) => {
                                         <MDBBtn 
                                             className='btn-sm px-3 py-2 rounded-pill' 
                                             color="brown" 
+                                            outline
                                             disabled={ qty <= 1 ? true : false }
                                             onClick={()=> setQty(qty - 1)}
                                             // onClick={console.log('kurang')}
@@ -161,6 +162,7 @@ const ProductDetail = (props) => {
                                         <MDBBtn 
                                             className='btn-sm px-3 py-2 rounded-pill' 
                                             color="brown" 
+                                            outline
                                             disabled={ qty >= stock ? true : false }
                                             onClick={()=> setQty(qty + 1)}
                                             // onClick={console.log('tambah')}
@@ -173,6 +175,7 @@ const ProductDetail = (props) => {
                             </MDBTable>
                             <MDBRow className="pl-2">
                                 <MDBBtn 
+                                    outline
                                     className='btn rounded-pill' 
                                     color="brown" 
                                     onClick={sendToCart}
