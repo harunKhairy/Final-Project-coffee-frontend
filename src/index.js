@@ -13,11 +13,13 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'mdbreact/dist/css/mdb.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import * as serviceWorker from './serviceWorker';
+import logger from 'redux-logger';
 
 
 
 
-const store = createStore(Reducers, {}, applyMiddleware(ReduxThunk))
+
+const store = createStore(Reducers, {}, applyMiddleware(ReduxThunk, logger))
 
 
 ReactDOM.render(

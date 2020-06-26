@@ -17,7 +17,7 @@ const INITIAL_STATE = {
     isloading: false,
     islogin: false,
     errormess: '',
-    cart: 0,
+    // cart: 0,
     role: '',
     token: '',
     password: '',
@@ -37,7 +37,7 @@ export default (state = INITIAL_STATE, action) => {
                 isLoading: false,
                 ...action.payload,
                 islogin: true,
-                cart: action.jumlahcart
+                // cart: action.jumlahcart
             }
         case USER_REGISTER_FAILED:
             return {
@@ -62,13 +62,13 @@ export default (state = INITIAL_STATE, action) => {
                 isloading: false,
                 ...action.payload,
                 islogin: true,
-                cart: action.jumlahcart
+                // cart: action.jumlahcart
             }
-        case 'ADD_CART':
-            return {
-                ...state,
-                cart: action.payload
-            }
+        // case 'ADD_CART':
+        //     return {
+        //         ...state,
+        //         cart: action.payload
+        //     }
         case 'AFTER_VERIFIED':
             return {
                 ...state,
