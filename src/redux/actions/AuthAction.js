@@ -129,27 +129,27 @@ export const ErrorMessageClear = () => {
     }
 }
 
-export const getdata=()=>{
-    Axios.get(`${API_URL}/transactions/?_embed=transactiondetails&userId=${id}&status=oncart`)
-    .then((res)=>{
-        if(res.data.length){
-            return res.data[0].transactiondetails.length
-        }else{
-            return 0
-        }
-    }).catch((err)=>{
-        console.log(err)
-    })
-}
-export const getdata=()=>{
-    Axios.get(`${API_URL}/transactions/?_embed=transactiondetails&userId=${id}&status=oncart`)
-    .then((res)=>{
-        if(res.data.length){
-            return res.data[0].transactiondetails.length
-        }else{
-            return 0
-        }
-    }).catch((err)=>{
-        console.log(err)
-    })
-}
+// export const getdata=()=>{
+//     Axios.get(`${API_URL}/transactions/?_embed=transactiondetails&userId=${id}&status=oncart`)
+//     .then((res)=>{
+//         if(res.data.length){
+//             return res.data[0].transactiondetails.length
+//         }else{
+//             return 0
+//         }
+//     }).catch((err)=>{
+//         console.log(err)
+//     })
+// }
+// export const getdata=()=>{
+//     Axios.get(`${API_URL}/transactions/?_embed=transactiondetails&userId=${id}&status=oncart`)
+//     .then((res)=>{
+//         if(res.data.length){
+//             return res.data[0].transactiondetails.length
+//         }else{
+//             return 0
+//         }
+//     }).catch((err)=>{
+//         console.log(err)
+//     })
+// }
