@@ -1,7 +1,7 @@
 import React from 'react'
 import Axios from 'axios'
 import {connect} from 'react-redux'
-import { MDBCarousel,  MDBCarouselInner, MDBCarouselItem, MDBView, MDBMask, MDBNavLink,  MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCol} from "mdbreact";
+import { MDBCarousel,  MDBCarouselInner, MDBCarouselItem, MDBView, MDBMask, MDBNavLink, MDBLink,  MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCol} from "mdbreact";
 import Numeral from 'numeral'
 import {
     Card, CardBody,
@@ -15,8 +15,6 @@ import {
 import videoSource from '../../assets/kopi.mp4'
 import './HomePage.css'
 import Zoom from 'react-reveal/Zoom'
-
-
 
 
 class HomePage extends React.Component {
@@ -45,12 +43,12 @@ class HomePage extends React.Component {
             return (
                 <div className="pt-1 pb-5 pl-5 pr-5" key={index}>
                     <Zoom  bottom cascade>
-                        <MDBCol style={{ maxWidth: "22rem",}}>
+                        <MDBCol style={{ maxWidth: "20rem",}}>
                             <MDBCard >
                                 <MDBCardImage 
                                     className="img-fluid rounded mx-auto d-block" 
                                     src={API_URL + val.image} 
-                                    style={{maxHeight: "322px", minWidth: "322px"}}
+                                    style={{maxHeight: "180px", minWidth: "180px"}}
                                     waves/>
 
                                 <MDBCardBody>
@@ -83,12 +81,13 @@ class HomePage extends React.Component {
                 <div className='Content'>
                     <div className='SubContent'>
                         <h1>Selamat datang di Kopikopiko (KKK)</h1>
-                        <p>'Kami tidak menjual kopi hitam'</p>
-                        <button 
+                        <button
                             type="button" 
                             className="btn btn-outline-white"
                             >
-                                Shop now
+                                <MDBLink to='/allproduct'>
+                                    Shop now
+                                </MDBLink> 
                         </button>
                     </div>
                 </div> 

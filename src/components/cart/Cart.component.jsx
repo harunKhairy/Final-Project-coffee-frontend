@@ -6,11 +6,12 @@ import {API_URL} from '../../support/ApiUrl'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import {changetoRupiah} from '../../support/changeToRp'
-import { AiOutlineDelete } from 'react-icons/ai';
-import { Link } from 'react-router-dom'
+// import { AiOutlineDelete } from 'react-icons/ai';
+// import { Link } from 'react-router-dom'
 // import SquareButton  from '../components/button'
-import { GetCart } from '../../redux/actions'
+import { GetCart } from '../../redux/actions/CartAction'
 import {Table,Modal,ModalBody,ModalHeader,ModalFooter} from 'reactstrap'
+import '../cart/Cart.css'
 
 const MySwal = withReactContent(Swal)
 

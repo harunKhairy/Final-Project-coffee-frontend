@@ -39,12 +39,12 @@ class AllProduct extends React.Component {
                 
                 <div className="p-4" key={index}>
                     <Zoom  bottom cascade>
-                        <MDBCol style={{ maxWidth: "22rem",}}>
+                        <MDBCol style={{ maxWidth: "20rem",}}>
                             <MDBCard >
                                 <MDBCardImage 
                                     className="img-fluid rounded mx-auto d-block" 
                                     src={API_URL + val.image} 
-                                    style={{maxHeight: "322px", minWidth: "322px"}}
+                                    style={{maxHeight: "200px", minWidth: "200px"}}
                                     waves/>
 
                                 <MDBCardBody>
@@ -94,7 +94,6 @@ class AllProduct extends React.Component {
     render() {
         return (
             <div>
-
                 {/* search bar */}
                 <div className="px-5 pt-5">
                     <input type="search" placeholder='Search...' className='form-control mb-2 mx-2 ' style={{width:'20%'}} onChange={this.onInputSearch}/>

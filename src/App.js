@@ -13,6 +13,8 @@ import NotFound from './components/notfound/notFound'
 import AllProduct from './components/all-product/AllProduct'
 import ProductDetail from './components/product-detail/ProductDetail'
 import Cart from './components/cart/Cart.component'
+import AccountSettings from './screens/AccountSettings/AccountSettings'
+import Footer from './components/footer/footer.component'
 // import TestTing from './screens/testting/testting'
 
 import { Switch, Route } from 'react-router-dom'
@@ -62,13 +64,10 @@ function App ({ KeepLogin }) {
         <Route exact path="/allproduct" component={AllProduct} />
         <Route exact path="/productdetail/:idprod" component={ProductDetail} />
         <Route exact path="/cart" component={Cart} />
-
-
-
+        <Route exact path="/accountsettings" component={AccountSettings} />
         <Route path='/*' exact component={NotFound} />
-
-
       </Switch>
+      <Footer/>
     </div>
   )
 }

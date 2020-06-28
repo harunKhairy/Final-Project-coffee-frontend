@@ -7,7 +7,7 @@ import {
     USER_LOGIN_SUCCESS,
     // CHANGE_PASSWORD_START,
     // CHANGE_PASSWORD_FAILED,
-    // CHANGE_PASSWORD_SUCCESS
+    CHANGE_PASSWORD_SUCCESS
 } from '../types'
 import { API_URL } from '../../support/ApiUrl'
 import Axios from 'axios'
@@ -128,6 +128,50 @@ export const ErrorMessageClear = () => {
         type: 'ERROR_MESSAGE_CLEAR'
     }
 }
+
+export const PasswordChange = () => {
+    return {
+        type: 'CHANGE_PASSWORD_SUCCESS',
+    }
+}
+
+// export const ChangePassword=(data)=>{
+//     return (dispatch)=>{
+//         dispatch({type:CHANGE_PASSWORD_START})
+//         if(data.currentpasswordinput === '' || data.newpassword === '' || data.newpasswordconf === ''){//kalo ada input yang kosong
+//             dispatch({type:CHANGE_PASSWORD_FAILED,payload:'lengkapi form yang ada'})
+//         }else if (data.newpassword===data.currentpassword){
+//             dispatch({type:CHANGE_PASSWORD_FAILED,payload:'password anda sama, tidak berubah'})
+//         }else if (data.newpassword !== data.newpasswordconf){
+//             dispatch({type:CHANGE_PASSWORD_FAILED,payload:'konfirmasi password tidak sesuai'})
+//         }else if(data.currentpasswordinput !== data.currentpassword){
+//             dispatch({type:CHANGE_PASSWORD_FAILED,payload:'password yang anda ketikkan salah'})
+//         }else{
+//             let role = localStorage.getItem('role')
+//             Axios.put(`${API_URL}/users/${data.id}`,{username:data.username,password:data.newpassword,role:role})
+//             .then((res)=>{
+//                 var usernewdata ={
+//                     message:'password berhasil diganti',
+//                     password:data.newpassword,
+//                     username:data.username,
+//                     role:role
+//                 }
+//                 dispatch({type:CHANGE_PASSWORD_SUCCESS,payload:usernewdata})
+//             }).catch((err)=>{
+//                 console.log(err)
+//             })
+//         }
+//     }
+// }
+
+// export const changepasswordclear=()=>{
+//     return{
+//         type:'PasswordChangeClear'
+//     }
+// }
+
+
+
 
 // export const getdata=()=>{
 //     Axios.get(`${API_URL}/transactions/?_embed=transactiondetails&userId=${id}&status=oncart`)

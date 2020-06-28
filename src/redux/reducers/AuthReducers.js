@@ -5,9 +5,10 @@ import {
     USER_LOGIN_START,
     USER_LOGIN_FAILED,
     USER_LOGIN_SUCCESS,
-    // CHANGE_PASSWORD_START,
-    // CHANGE_PASSWORD_FAILED,
-    // CHANGE_PASSWORD_SUCCESS
+    CHANGE_PASSWORD,
+    CHANGE_PASSWORD_START,
+    CHANGE_PASSWORD_FAILED,
+    CHANGE_PASSWORD_SUCCESS
 } from '../types'
 
 
@@ -64,6 +65,24 @@ export default (state = INITIAL_STATE, action) => {
                 islogin: true,
                 // cart: action.jumlahcart
             }
+        case CHANGE_PASSWORD:
+            return {...state,...action.payload}
+
+        // case CHANGE_PASSWORD_START:
+        //     return {
+        //         ...state,
+        //         isloading:true}
+        // case CHANGE_PASSWORD_SUCCESS:
+        //     return {
+        //         ...state,
+        //         isloading:false,
+        //         password:action.payload.password,
+        //         changepasssuccess:action.payload}
+        // case CHANGE_PASSWORD_FAILED:
+        //     return{
+        //         ...state,
+        //         isloading:false,
+        //         errormes:action.payload}
         // case 'ADD_CART':
         //     return {
         //         ...state,

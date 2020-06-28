@@ -47,6 +47,15 @@ render() {
         </MDBNavbarBrand>
         <MDBNavbarToggler onClick={this.toggleCollapse} />
         <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
+
+        <MDBNavbarNav left>
+          
+        <li class="nav-item">
+            <a class="nav-link" href="/allproduct">Shop</a>
+        </li>
+
+        </MDBNavbarNav>
+
           
           <MDBNavbarNav right>
 
@@ -68,36 +77,44 @@ render() {
               }
             </MDBNavItem>
             
-            <MDBNavItem>
-            {
-                // this.props.USER.role.islogin && this.props.USER.role === 1 ?
-                // <MDBNavItem>
-                //   {this.props.USER.cart} <FiShoppingCart style={{fontSize:20}}/> Cart
-                // </MDBNavItem> :
-                // null
+              {/* { 
                 this.props.USER.role.islogin && this.props.USER.role === 1 ?
+                <MDBNavItem>
                   <MDBNavLink to='/cart' style={{color:"black"}}>
                     <div className="quick-btn">
                       <FiShoppingCart style={{fontSize:20}}/>
                       {this.props.QTY !== 0 ? <span className="badge badge-danger label ml-2 text-center" >{this.props.QTY}</span> : null }
                     </div>
-                  </MDBNavLink> :
+                  </MDBNavLink>
+                </MDBNavItem> 
+                :
                 null
+              } */}
+              {
+                this.props.USER.role === 1 ?
+                <MDBNavItem>
+                  <MDBNavLink to='/cart' style={{color:"white"}}>
+                      <FiShoppingCart style={{fontSize:20}}/> Cart
+                  </MDBNavLink>
+                  {this.props.QTY !== 0 ? <span className="badge badge-danger label ml-2 text-center" >
+                  {this.props.QTY}</span> : null }
+                </MDBNavItem> 
+                  :
+                  null
               }
-            </MDBNavItem>
 
             <MDBNavItem>
               {
                 this.props.USER.username ?
                 <MDBDropdown className="black-text">
-                    <MDBDropdownToggle nav caret className="black-text text-uppercase" >
-                      <FaUserCircle style={{color:'#f07474'}}/> HI, {this.props.USER.username} !
+                    <MDBDropdownToggle nav caret className="white-text text-uppercase" >
+                      <FaUserCircle style={{color:'white'}}/> HI, {this.props.USER.username} !
                     </MDBDropdownToggle>
                       {this.props.USER.role === 1 ?
                         <MDBDropdownMenu className="right black-text">
                           <MDBDropdownItem href="#!"> <FiHeart /> Wishlist</MDBDropdownItem>
                           <MDBDropdownItem href={`/transactionssummary/${this.props.USER.id}`}> <FaRegListAlt /> Transaction History</MDBDropdownItem>
-                          <MDBDropdownItem href="/accountsetting"> <FiSettings /> Account Setting</MDBDropdownItem>
+                          <MDBDropdownItem href="/accountsettings"> <FiSettings /> Account Settings</MDBDropdownItem>
                           <MDBDropdownItem href="/" onClick={this.logoutHandler}><FiLogOut /> Logout</MDBDropdownItem>
                           <MDBDropdownItem>
                           {
