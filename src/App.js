@@ -64,6 +64,7 @@ function App ({ KeepLogin }) {
         <Route exact path="/cart" component={Cart} />
 
 
+
         <Route path='/*' exact component={NotFound} />
 
 
